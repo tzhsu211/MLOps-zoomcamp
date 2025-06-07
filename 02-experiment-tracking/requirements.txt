@@ -11,3 +11,6 @@ numpy
 matplotlib
 pyarrow
 tqdm
+mlflow
+click
+hyperopt
