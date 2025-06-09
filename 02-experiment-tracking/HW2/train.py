@@ -10,6 +10,8 @@ import mlflow
 mlflow.set_tracking_uri("sqlite:///mlflow.db")
 mlflow.set_experiment("HW2")
 
+mlflow.sklearn.autolog()
+
 
 def load_pickle(filename: str):
     with open(filename, "rb") as f_in:
@@ -25,6 +27,8 @@ def load_pickle(filename: str):
 def run_train(data_path: str):
     
     with mlflow.start_run():
+        
+        print(f'tracking uri@ {mlflow.get_tracking_uri()}')
 
         mlflow.set_tag("HW2", "homework2")
         mlflow.log_param("train data", 'green_2023-01')
@@ -47,6 +51,8 @@ def run_train(data_path: str):
         rmse = root_mean_squared_error(y_val, y_pred)
         
         mlflow.log_metric("RMSE", rmse)
+        
+        print("Logged run with RMSE:", rmse)
 
 
 if __name__ == '__main__':
