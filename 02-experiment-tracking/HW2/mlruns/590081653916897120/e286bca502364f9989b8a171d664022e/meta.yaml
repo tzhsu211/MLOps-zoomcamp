@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/e286bca502364f9989b8a171d664022e/artifacts
+end_time: 1749505496609
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: e286bca502364f9989b8a171d664022e
+run_name: luxuriant-dog-437
+run_uuid: e286bca502364f9989b8a171d664022e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505490859
+status: 3
+tags: []
+user_id: codespace

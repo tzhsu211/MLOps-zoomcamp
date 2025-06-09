@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/c94569e16e554d128409b36187eca8db/artifacts
+end_time: 1749505540733
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: c94569e16e554d128409b36187eca8db
+run_name: fun-wolf-981
+run_uuid: c94569e16e554d128409b36187eca8db
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505539684
+status: 3
+tags: []
+user_id: codespace

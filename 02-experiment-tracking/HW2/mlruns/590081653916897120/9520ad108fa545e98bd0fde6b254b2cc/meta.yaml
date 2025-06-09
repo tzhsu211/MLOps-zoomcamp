@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/9520ad108fa545e98bd0fde6b254b2cc/artifacts
+end_time: 1749505539672
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: 9520ad108fa545e98bd0fde6b254b2cc
+run_name: caring-ape-429
+run_uuid: 9520ad108fa545e98bd0fde6b254b2cc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505536382
+status: 3
+tags: []
+user_id: codespace

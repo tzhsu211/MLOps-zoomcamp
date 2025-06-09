@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/21ea0dada6f544ebb75be45d3fe0d58c/artifacts
+end_time: 1749505536370
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: 21ea0dada6f544ebb75be45d3fe0d58c
+run_name: abrasive-boar-613
+run_uuid: 21ea0dada6f544ebb75be45d3fe0d58c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505532460
+status: 3
+tags: []
+user_id: codespace

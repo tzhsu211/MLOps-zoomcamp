@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/464930647076900974/e5725b6f942d440a94650dd036e7c8c5/artifacts
+end_time: 1749505629640
+entry_point_name: ''
+experiment_id: '464930647076900974'
+lifecycle_stage: active
+run_id: e5725b6f942d440a94650dd036e7c8c5
+run_name: gregarious-goose-118
+run_uuid: e5725b6f942d440a94650dd036e7c8c5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505623265
+status: 3
+tags: []
+user_id: codespace

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/458a2e483f484daebafeef4330a5b99f/artifacts
+end_time: 1749505499627
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: 458a2e483f484daebafeef4330a5b99f
+run_name: loud-rook-121
+run_uuid: 458a2e483f484daebafeef4330a5b99f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505496626
+status: 3
+tags: []
+user_id: codespace

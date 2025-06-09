@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/1e6b6314b1f34ebfaa7637dc661009cb/artifacts
+end_time: 1749505490218
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: 1e6b6314b1f34ebfaa7637dc661009cb
+run_name: capricious-ant-973
+run_uuid: 1e6b6314b1f34ebfaa7637dc661009cb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505489806
+status: 3
+tags: []
+user_id: codespace

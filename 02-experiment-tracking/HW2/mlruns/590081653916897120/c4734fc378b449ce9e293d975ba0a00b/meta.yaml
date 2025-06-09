@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/c4734fc378b449ce9e293d975ba0a00b/artifacts
+end_time: 1749505490847
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: c4734fc378b449ce9e293d975ba0a00b
+run_name: righteous-slug-269
+run_uuid: c4734fc378b449ce9e293d975ba0a00b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505490231
+status: 3
+tags: []
+user_id: codespace

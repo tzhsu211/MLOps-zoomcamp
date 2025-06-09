@@ -34,24 +34,15 @@ def train_and_log_model(data_path, params):
         new_params = {}
         for param in RF_PARAMS:
             new_params[param] = int(params[param])
-            print(param, int(params[param]))
-            
-        print('ml start')
-        for newparams in new_params:
-            print(newparams)
 
         rf = RandomForestRegressor(**new_params)
         rf.fit(X_train, y_train)
         
-        print('trained.')
 
         # Evaluate model on the validation and test sets
-        y_pred_val = rf.predict(X_val)
-        print('y_pred_val')
-        y_pred_test = rf.predict(X_test)
-        val_rmse = root_mean_squared_error(y_val, y_pred_val)
+        val_rmse = root_mean_squared_error(y_val, rf.predict(X_val))
         mlflow.log_metric("val_rmse", val_rmse)
-        test_rmse = root_mean_squared_error(y_test, y_pred_test)
+        test_rmse = root_mean_squared_error(y_test, rf.predict(X_test))
         mlflow.log_metric("test_rmse", test_rmse)
         
         print('metrics calculated.')
@@ -81,8 +72,6 @@ def run_register_model(data_path: str, top_n: int):
         max_results=top_n,
         order_by=["metrics.rmse ASC"]
     )
-    
-    print('5 models selected')
     
     for run in runs:
         train_and_log_model(data_path=data_path, params=run.data.params)

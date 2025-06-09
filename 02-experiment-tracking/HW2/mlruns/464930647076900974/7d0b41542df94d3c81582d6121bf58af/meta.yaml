@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/464930647076900974/7d0b41542df94d3c81582d6121bf58af/artifacts
+end_time: 1749505638349
+entry_point_name: ''
+experiment_id: '464930647076900974'
+lifecycle_stage: active
+run_id: 7d0b41542df94d3c81582d6121bf58af
+run_name: fun-stoat-234
+run_uuid: 7d0b41542df94d3c81582d6121bf58af
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505629655
+status: 3
+tags: []
+user_id: codespace

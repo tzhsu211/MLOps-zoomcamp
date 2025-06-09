@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/91a7e26a4bd045e6966809b79d1bf93d/artifacts
+end_time: 1749505527457
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: 91a7e26a4bd045e6966809b79d1bf93d
+run_name: rogue-kit-362
+run_uuid: 91a7e26a4bd045e6966809b79d1bf93d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505521112
+status: 3
+tags: []
+user_id: codespace

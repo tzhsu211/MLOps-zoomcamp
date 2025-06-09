@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/f289a2beec3842899fcda507a7a48aef/artifacts
+end_time: 1749505544412
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: f289a2beec3842899fcda507a7a48aef
+run_name: gifted-smelt-174
+run_uuid: f289a2beec3842899fcda507a7a48aef
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505540746
+status: 3
+tags: []
+user_id: codespace

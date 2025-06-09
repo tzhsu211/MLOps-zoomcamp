@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/590081653916897120/398f40c584fc4ea68bcbd36ba8ae930f/artifacts
+end_time: 1749505521100
+entry_point_name: ''
+experiment_id: '590081653916897120'
+lifecycle_stage: active
+run_id: 398f40c584fc4ea68bcbd36ba8ae930f
+run_name: adaptable-colt-261
+run_uuid: 398f40c584fc4ea68bcbd36ba8ae930f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749505520049
+status: 3
+tags: []
+user_id: codespace
