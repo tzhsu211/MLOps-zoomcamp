@@ -1,0 +1,6 @@
+pandas==2.2.3
+numpy==1.26.0  # Ensures MLflow compatibility
+prefect==3.4.6
+scikit-learn==1.6.1  # Install with --no-deps if needed
+pyarrow==14.0.0  # Compatible with MLflow
+mlflow==3.1.0
