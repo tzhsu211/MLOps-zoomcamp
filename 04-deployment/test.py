@@ -1,4 +1,4 @@
-import predict
+import requests
 
 ride = {
     "PULocationID": 10,
@@ -6,5 +6,8 @@ ride = {
     "trip_distance":40
 }
 
-pred = predict.predict(ride)
-print(pred)
+url = 'http://localhost:9696/predict'
+
+response = requests.post(url = url, json = ride)
+
+print(response.json())
