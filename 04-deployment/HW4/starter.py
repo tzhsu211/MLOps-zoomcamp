@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
+import numpy as np
 import pickle
 import pandas as pd
 import click
@@ -39,8 +39,8 @@ def predict(df, model_path, year, month):
 @click.option("--year", type = int, required = True, help = 'The year of data.')
 @click.option("--month", type = int, required = True, help = 'The month of data.')
 def main(year, month):
-    input_file = f"./yellow_tripdata_{year:04d}-{month:02d}.parquet"
-    output_file = f'./output/output_yellow_tripdata_{year:04d}-{month:02d}.parquet' 
+    input_file = f"./data/yellow_tripdata_{year:04d}-{month:02d}.parquet"
+    output_file = f'./data/output/output_yellow_tripdata_{year:04d}-{month:02d}.parquet' 
     model_pth = './model.bin'
     
     df = read_data(input_file)
@@ -56,7 +56,7 @@ def main(year, month):
         index= False
     )
     print(f'Resule saved at {output_file}.')
-    print(f'The mean of predicted duration is {df_result['prediction'].mean()}.')
+    print(f'The mean of predicted duration is {df_result["prediction"].mean()}.')
 
 if __name__ == '__main__':
     main()

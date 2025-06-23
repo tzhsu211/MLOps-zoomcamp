@@ -5,11 +5,13 @@ name = "pypi"
 
 [packages]
 flask = "*"
-mlflow = "*"
 xgboost = "*"
-scikit-learn = "*"
-pandas = "*"
 numpy = "*"
+scikit-learn = "==1.6.1"
+pandas = "*"
+click = "*"
+mlflow = "*"
+scipy = "*"
 
 [dev-packages]
 requests = "*"
