@@ -35,4 +35,13 @@ services:
     networks:
       - back-tier
       - front-tier
-    
+      
+  metrics:
+    build: .
+    depends_on:
+      - db
+    networks:
+      - back-tier
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models

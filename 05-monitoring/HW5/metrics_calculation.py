@@ -1,5 +1,6 @@
+from numpy import True_
 import pandas as pd
-from joblib import dump, load
+from joblib import load
 from evidently import DataDefinition, Dataset
 from evidently.metrics import QuantileValue, DatasetMissingValueCount, DriftedColumnsCount 
 from evidently.core.report import Snapshot
@@ -95,16 +96,16 @@ def predict(df:pd.DataFrame) -> pd.DataFrame :
 
 @task
 def db():
-    with psycopg.connect("host=localhost port=5432 user=postgres password=password") as conn:
+    with psycopg.connect("host=localhost port=5432 user=postgres password=password", autocommit= True) as conn:
         res = conn.execute("SELECT 1 FROM pg_database WHERE datname = 'monitoring'")
         if len(res.fetchall) ==0:
             conn.execute("create database monitoring")
-        with psycopg.connect("host=localhost port=5432 user=postgres password=password") as conn:
-            conn.execute(create_table_statement)
+    with psycopg.connect("host=localhost port=5432 dbname=monitoring user=postgres password=password", autocommit= True) as conn:
+        conn.execute(create_table_statement)
             
 
 @task
-def calculate_metrics(curr, val_df:pd.DataFrame, train_df: pd.DataFrame, date:int):
+def calculate_metrics(conn, val_df:pd.DataFrame, train_df: pd.DataFrame, date:datetime.date):
     
     '''
     curr: DB connection cursor
@@ -130,10 +131,10 @@ def calculate_metrics(curr, val_df:pd.DataFrame, train_df: pd.DataFrame, date:in
     medium_fare_amount = float(snapshot['metrics'][2]['value'])
     medium_trip_distance = float(snapshot['metrics'][3]['value'])
 
-    curr.execute(
+    conn.execute(
         """insert into metrics 
         (timestamp, share_missing_values, num_drifted_columns, medium_of_fare_amount, medium_of_trip_distance)
-        VALUES (%s %s %s %s %s)""", 
+        VALUES (%s, %s, %s, %s, %s)""", 
         (date, missing_count, drifted_count, medium_fare_amount, medium_trip_distance)
     )
     
@@ -142,6 +143,31 @@ def calculate_metrics(curr, val_df:pd.DataFrame, train_df: pd.DataFrame, date:in
 
 @flow
 def batch_monitoring():
+    '''
+    1. created db
+    2. read file
+    3. predict
+    4. calculate matrics and insert to db
+    '''
+    print("start create db")
+    db()
+    print("db connected")
     
+    print("load train and val file")
+    train_df = predict(read_dataframe("./data/green_tripdata_2024-01.parquet"))
+    val_df = predict(read_dataframe("./data/green_tripdata_2024-03.parquet"))
+    
+    print("loaded.")
+    
+    unique_date = sorted(val_df['date'].dt.date.unique())
+    print("start inserting lines to db...")
+    with psycopg.connect("host=localhost port=5432 user=postgres password=password", autocommit=True) as conn:
+        for d in unique_date:
+            calculate_metrics(conn, val_df, train_df, d)
+            
+            
+if __name__ == "__main__":
+    batch_monitoring()
+            
     
     
