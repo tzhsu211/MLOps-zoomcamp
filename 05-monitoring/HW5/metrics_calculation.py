@@ -28,24 +28,6 @@ column_def = DataDefinition(
     datetime_columns= time_features
 )
 
-report = Report(
-    metrics=[
-    DatasetMissingValueCount(),
-    DriftedColumnsCount(),
-    QuantileValue(column = 'fare_amount', quantile = 0.5),
-    QuantileValue(column = 'trip_distance', quantile = 0.5)
-    ],
-    include_tests= True
-)
-
-snapshot = Snapshot(
-    report = report,
-    name = "Snapshot",
-    timestamp= 'date',
-    metadata={},
-    tags= []
-)
-
 create_table_statement = """
 drop table if exists metrics;
 create table metrics(
@@ -94,13 +76,12 @@ def predict(df:pd.DataFrame) -> pd.DataFrame :
     
     return df1
 
-@task
 def db():
-    with psycopg.connect("host=localhost port=5432 user=postgres password=password", autocommit= True) as conn:
+    with psycopg.connect("host=db port=5432 user=postgres password=password", autocommit= True) as conn:
         res = conn.execute("SELECT 1 FROM pg_database WHERE datname = 'monitoring'")
-        if len(res.fetchall) ==0:
+        if len(res.fetchall()) ==0:
             conn.execute("create database monitoring")
-    with psycopg.connect("host=localhost port=5432 dbname=monitoring user=postgres password=password", autocommit= True) as conn:
+    with psycopg.connect("host=db port=5432 dbname=monitoring user=postgres password=password", autocommit= True) as conn:
         conn.execute(create_table_statement)
             
 
@@ -124,12 +105,31 @@ def calculate_metrics(conn, val_df:pd.DataFrame, train_df: pd.DataFrame, date:da
     current_data_df = Dataset.from_pandas(current_data, data_definition=column_def)
     train_data_df = Dataset.from_pandas(train_df, data_definition=column_def)
 
-    snapshot.run(current_data=current_data_df, reference_data= train_data_df)
+    report = Report(
+        metrics=[
+        DatasetMissingValueCount(),
+        DriftedColumnsCount(),
+        QuantileValue(column = 'fare_amount', quantile = 0.5),
+        QuantileValue(column = 'trip_distance', quantile = 0.5)
+        ],
+        include_tests= True
+    )
+
+    snapshot = Snapshot(
+        report = report,
+        name = "Snapshot",
+        timestamp= 'date',
+        metadata={},
+        tags= []
+    )
     
-    missing_count = snapshot['metrics'][0]['value']['count']
-    drifted_count = snapshot['metrics'][1]['value']['count']
-    medium_fare_amount = float(snapshot['metrics'][2]['value'])
-    medium_trip_distance = float(snapshot['metrics'][3]['value'])
+    snapshot.run(current_data=current_data_df, reference_data= train_data_df)
+    snapshot_metrics = snapshot.dict()
+    
+    missing_count = snapshot_metrics['metrics'][0]['value']['count']
+    drifted_count = snapshot_metrics['metrics'][1]['value']['count']
+    medium_fare_amount = float(snapshot_metrics['metrics'][2]['value'])
+    medium_trip_distance = float(snapshot_metrics['metrics'][3]['value'])
 
     conn.execute(
         """insert into metrics 
@@ -161,7 +161,7 @@ def batch_monitoring():
     
     unique_date = sorted(val_df['date'].dt.date.unique())
     print("start inserting lines to db...")
-    with psycopg.connect("host=localhost port=5432 user=postgres password=password", autocommit=True) as conn:
+    with psycopg.connect("host=db port=5432 dbname=monitoring user=postgres password=password", autocommit=True) as conn:
         for d in unique_date:
             calculate_metrics(conn, val_df, train_df, d)
             

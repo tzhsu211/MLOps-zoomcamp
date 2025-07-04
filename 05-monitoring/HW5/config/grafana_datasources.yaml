@@ -6,7 +6,7 @@ datasources:
     access: proxy
     url: db:5432
     database: monitoring
-    uers: postgres
+    user: postgres
     secureJsonData:
       password: 'password'
     jsonData:
