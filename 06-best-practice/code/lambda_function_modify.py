@@ -11,7 +11,7 @@ def load_model(run_id:str):
 
 def base64_decode(encoded_data):
     decoded_data = base64.b64decode(encoded_data)
-    ride_event = json.load(decoded_data)
+    ride_event = json.loads(decoded_data)
     return ride_event
     
 
@@ -24,13 +24,14 @@ def base64_decode(encoded_data):
 class ModelService():
     
     
-    def __init__(self, model):
+    def __init__(self, model, model_ver):
         self.model = model
+        self.model_ver =model_ver
         
         
     def prepare_features(self, ride):
         features = {}
-        features['PU_DO'] = '%s_%s' %(ride['PULocation'], ride['DOLocation'])
+        features['PU_DO'] = '%s_%s' %(ride['PULocationID'], ride['DOLocationID'])
         features['trip_distance'] = ride['trip_distance']
         return features
 
@@ -47,31 +48,31 @@ class ModelService():
             ride_event = base64_decode(encoded_data)
             
             ride = ride_event['ride']
-            ride_id = ride_event[ride_id]
+            ride_id = ride_event['ride_id']
             
             features = self.prepare_features(ride)
             prediction = self.predict(features)
             
             prediction_event = {
                 'model':'ride_duration_prediction_mode',
-                'version': '123',
+                'version': self.model_ver,
                 'prediction':{
                     'ride_duration': prediction,
                     'ride_id': ride_id
                 }
             }
             
-            if not TEST_RUN:
-                kinesis_client.put_record(
-                    StreamName = PREDICTIONS_STREAM_NAME,
-                    Data = json.dump(prediction_event),
-                    PartitionKey = str(ride_id)
-                )
+            # if not TEST_RUN:
+            #     kinesis_client.put_record(
+            #         StreamName = PREDICTIONS_STREAM_NAME,
+            #         Data = json.dump(prediction_event),
+            #         PartitionKey = str(ride_id)
+            #     )
                 
             prediction_events.append(prediction_event)
             
             return {
-                'predictios': prediction_events
+                'predictions': prediction_events
             }
     
 def init(predictions_stream_name:str, run_id: str, test_run:bool = True):
