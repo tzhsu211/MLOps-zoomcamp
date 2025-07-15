@@ -24,9 +24,10 @@ def base64_decode(encoded_data):
 class ModelService():
     
     
-    def __init__(self, model, model_ver):
+    def __init__(self, model, model_ver, callbacks = None):
         self.model = model
         self.model_ver =model_ver
+        self.callbacks = callbacks or []
         
         
     def prepare_features(self, ride):
@@ -68,6 +69,9 @@ class ModelService():
             #         Data = json.dump(prediction_event),
             #         PartitionKey = str(ride_id)
             #     )
+                
+            for callbacks in self.call_backs:
+                callbacks(prediction_event)
                 
             prediction_events.append(prediction_event)
             
