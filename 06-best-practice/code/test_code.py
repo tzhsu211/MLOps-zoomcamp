@@ -1,8 +1,8 @@
-import lambda_function_modify
+import model
 
 def test_base64():
     encode = 'ewogICAgICAgICJyaWRlIjogewogICAgICAgICAgICAiUFVMb2NhdGlvbklEIjogMTMwLAogICAgICAgICAgICAiRE9Mb2NhdGlvbklEIjogMjA1LAogICAgICAgICAgICAidHJpcF9kaXN0YW5jZSI6IDMuNjYKICAgICAgICB9LCAKICAgICAgICAicmlkZV9pZCI6IDI1NgogICAgfQ=='
-    decode = lambda_function_modify.base64_decode(encode)
+    decode = model.base64_decode(encode)
     
     actual = {
         "ride": {
@@ -32,7 +32,7 @@ def test_predict():
     }
     
     mock_model = ModelMock(10)
-    model_service = lambda_function_modify.ModelService(mock_model, '123')
+    model_service = model.ModelService(mock_model, '123')
     pred = model_service.predict(features)
     
     expected = 10
@@ -44,7 +44,7 @@ def test_handler():
     
     mock_model = ModelMock(10)
     model_ver = '123'
-    model_service = lambda_function_modify.ModelService(mock_model, model_ver)
+    model_service = model.ModelService(mock_model, model_ver)
 
 
     event = {
