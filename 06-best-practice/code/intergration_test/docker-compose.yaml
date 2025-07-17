@@ -13,13 +13,13 @@ services:
       - AWS_ACCESS_KEY_ID=abc
       - AWS_SECRET_ACCESS_KEY=xyz
     volumes:
-      - "./model:app/model"
+      - "./model:/app/model"
     
-  # kinesis:
-  #   image: localstack/localstack
-  #   ports: 
-  #     - "4566:4566"
-  #   environment:
-  #     - SERVICES=kinesis
+  kinesis:
+    image: localstack/localstack
+    ports: 
+      - "4566:4566"
+    environment:
+      - SERVICES=kinesis
 
 
